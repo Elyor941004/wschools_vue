@@ -12,9 +12,11 @@
             </div>
         </div>
         <div class="body_content_menu">
+          <div class="body_content_menu_position">
             <router-link class="content_menu" to="">Foods</router-link>
             <router-link class="content_menu" to="">Desserts</router-link>
             <router-link class="content_menu" to="">Cookies</router-link>
+          </div>
         </div>
         <div class="row">
             <div class="col">
@@ -87,12 +89,28 @@
     .body_content_tekst .justify-content-center{
         margin-bottom: 14px;
     }
-    .body_content_menu{
+
+    @media only screen and (max-width: 768px) {
+      .body_content_menu{
+        display: flex;
+        justify-content: center;
+      }
+      .body_content_menu .content_menu{
+        margin-top: 24px;
+      }
+      .body_content_menu_position{
+        width: 144px;
+      }
+    }
+    @media only screen and (min-width: 769px) {
+      .body_content_menu_position{
         display: flex;
         justify-content: space-evenly;
+      }
     }
-    .body_content_menu .content_menu{
+      .body_content_menu .content_menu{
         height: 44px;
+        width: 144px;
         text-decoration: none;
         color:black;
         background-color: rgb(0, 0, 0, 0.01);
@@ -100,7 +118,7 @@
         padding: 14px 24px 14px 24px;
         align-items: center;
         justify-content: center;
-        border-radius: 4px;
+        border-radius: 6px;
         transition: transform .3s;
         box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
     }

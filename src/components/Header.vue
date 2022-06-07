@@ -73,14 +73,36 @@ export default {
      height: 100%;
      width: 100%;
  }
- .header-menu{
+ @media only screen and (max-width: 768px) {
+   .header-menu{
+     display: flex;
+     width: 24%;
+     justify-content: center;
+     align-items: flex-end;
+     flex-direction: column;
+   }
+   .header_menu_link{
+     text-decoration: none !important;
+     color: white  !important;
+     width: 144px;
+     padding: 12px 12px 14px 12px;
+     margin: 64px 0px 0px 0px;
+     border-radius: 4px;
+     transition: transform .3s;
+     z-index: 1;
+     font-weight: bold;
+     box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
+   }
+ }
+ @media only screen and (min-width: 769px) {
+   .header-menu{
      display: flex;
      width: 100%;
      justify-content: center;
      align-items: flex-end;
      margin-top: -34px;
- }
- .header_menu_link{
+   }
+   .header_menu_link{
      text-decoration: none !important;
      color: white  !important;
      width: 14%;
@@ -91,7 +113,10 @@ export default {
      z-index: 1;
      font-weight: bold;
      box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
+   }
  }
+
+
  .header_menu_link:hover{
      color: white;
      background-color: rgb(0, 0, 0, 0.2);
