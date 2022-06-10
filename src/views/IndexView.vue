@@ -13,48 +13,52 @@
         </div>
         <div class="body_content_menu">
           <div class="body_content_menu_position">
-            <router-link class="content_menu" to="">Foods</router-link>
-            <router-link class="content_menu" to="">Desserts</router-link>
-            <router-link class="content_menu" to="">Cookies</router-link>
+            <router-link class="content_menu" to="" @click="foodsShow">Foods</router-link>
+            <router-link class="content_menu" to="" @click="dessertsShow">Desserts</router-link>
+            <router-link class="content_menu" to="" @click="cookiesShow">Cookies</router-link>
           </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../assets/img/test.webp" alt="">
-                    </div>
-                    <div class="card-footer">
-                        <h2>Easy Meatloaf</h2>
-                        <span>This is a very easy and no fail recipe for meatloaf. It won't take long to make at all, and it's quite good!</span>
-                        <h3>30 min</h3>
-                    </div>
-                </div>
+        <div class="row" v-if="foods">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="response in allPosts" :key="response.id">
+            <div class="card">
+              <div class="card-body">
+                <img :src="`https://wschool.uz/storage/${response.image}`" alt="">
+              </div>
+              <div class="card-footer">
+                <h2>{{response.name}}</h2>
+                <span>{{response.text}}</span>
+                <h3>{{response.time}} min</h3>
+              </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../assets/img/test.webp" alt="">
-                    </div>
-                    <div class="card-footer">
-                        <h2>Easy Meatloaf</h2>
-                        <span>This is a very easy and no fail recipe for meatloaf. It won't take long to make at all, and it's quite good!</span>
-                        <h3>30 min</h3>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div class="row" v-if="desserts">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="response in allDesserts" :key="response.id">
+            <div class="card">
+              <div class="card-body">
+                <img :src="`https://wschool.uz/storage/${response.image}`" alt="">
+              </div>
+              <div class="card-footer">
+                <h2>{{response.name}}</h2>
+                <span>{{response.text}}</span>
+                <h3>{{response.time}} min</h3>
+              </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../assets/img/test.webp" alt="">
-                    </div>
-                    <div class="card-footer">
-                        <h2>Easy Meatloaf</h2>
-                        <span>This is a very easy and no fail recipe for meatloaf. It won't take long to make at all, and it's quite good!</span>
-                        <h3>30 min</h3>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div class="row" v-if="cookies">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" v-for="response in allCookies" :key="response.id">
+            <div class="card">
+              <div class="card-body">
+                <img :src="`https://wschool.uz/storage/${response.image}`" alt="">
+              </div>
+              <div class="card-footer">
+                <h2>{{response.name}}</h2>
+                <span>{{response.text}}</span>
+                <h3>{{response.time}} min</h3>
+              </div>
             </div>
+          </div>
         </div>
         <footer>
             <div class="row">
@@ -72,8 +76,29 @@
 <script>
     import Header from "@/components/Header";
     import SwiperCarusel from "@/components/SwiperCarusel";
+    import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
     export default {
-        components: {SwiperCarusel, Header}
+      components: {SwiperCarusel, Header},
+      computed:{
+        ...mapState(['foods', 'desserts', 'cookies']),
+        ...mapGetters(['allPosts', 'allDesserts', 'allCookies']),
+      },
+      methods:{
+        ...mapActions(['fetchPosts', 'fetchDesserts', 'fetchCookies']),
+        ...mapMutations(['foodsShowFunc', 'dessertsShowFunc', 'cookiesShowFunc']),
+        foodsShow(){
+          this.foodsShowFunc()
+        },
+        dessertsShow(){
+          this.dessertsShowFunc()
+        },
+        cookiesShow(){
+          this.cookiesShowFunc()
+        },
+      },
+      async mounted(){
+        this.fetchPosts();
+      },
     }
 </script>
 <style scoped>
@@ -140,20 +165,34 @@
         border-radius: 4px;
     }
     .card-footer{
+      padding: 0px -14px 0px -14px;
         border: 0;
+      background-color: transparent;
     }
     .card{
         transition: transform .3s;
         border: 0;
     }
     .card:hover{
-        box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
     }
     .card:hover{
-        -ms-transform: scale(1.04); /* IE 9 */
-        -webkit-transform: scale(1.04); /* Safari 3-8 */
-        transform: scale(1.04);
+        -ms-transform: scale(1.004); /* IE 9 */
+        -webkit-transform: scale(1.004); /* Safari 3-8 */
+        transform: scale(1.004);
         transition: transform .3s;
+    }
+    .card-body img{
+      transition: transform .7s;
+    }
+    .card-body img:hover{
+      box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.1);
+    }
+    .card-body:hover{
+      -ms-transform: scale(1.04); /* IE 9 */
+      -webkit-transform: scale(1.04); /* Safari 3-8 */
+      transform: scale(1.04);
+      transition: transform .3s;
     }
     footer .row{
         height: 144px;
@@ -168,4 +207,5 @@
         color: white;
         font-weight: bold;
     }
+
 </style>

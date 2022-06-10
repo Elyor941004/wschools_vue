@@ -1,7 +1,7 @@
 <template>
     <div class="header">
-        <Swiper class="header_swiper" :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual]"
-                 :pagination="{ clickable:true, dynamicBullets:true }" grab-cursor virtual>
+        <Swiper class="header_swiper" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual]"
+                 :pagination="{ clickable:true, dynamicBullets:true }" grab-cursor virtual >
             <SwiperSlide v-for="number in numbers" :key="number.id" :virutalIndex="number.id">
                 <img :src="require(`../assets/img/${number.value}`)" v-bind:alt="number">
             </SwiperSlide>
@@ -21,14 +21,18 @@
 </template>
 <script setup>
 import { Navigation, Pagination, Virtual } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
 import 'swiper/css/bundle';
 </script>
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue';
 export default {
     name:'header',
+    components:{
+      Swiper,
+      SwiperSlide
+    },
     data(){
         return {
             numbers:[
@@ -42,12 +46,14 @@ export default {
                 {id:8, value:"headerslide8.jpg"},
                 {id:9, value:"headerslide9.jpg"},
                 {id:10, value:"headerslide10.jpg"}
-            ]
+            ],
+          index:0,
+          interval:null,
         }
     },
-    methods:{
+    methods: {
 
-    }
+    },
 
 }
 </script>
@@ -115,7 +121,9 @@ export default {
      box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
    }
  }
-
+.header-menu .form-group{
+  z-index: 1;
+}
 
  .header_menu_link:hover{
      color: white;
@@ -126,12 +134,15 @@ export default {
      box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.1);
  }
  .header select{
+    text-align: center;
      color: white  !important;
-     margin: 24px 0px 24px 0px;
-     background-color: rgb(0, 0, 0, 0.4);
-     width: 74px;
+      border-radius: 4px;
+     margin: 0px 0px 44px 0px;
+      box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.1);
+     background-color: rgb(0, 0, 0, 0);
+     width: 144px;
      border: 0;
-     height: 34px;
+     height: 50px;
      transition: transform .3s;
  }
  .header select:hover{
@@ -139,8 +150,6 @@ export default {
      -ms-transform: scale(1.04); /* IE 9 */
      -webkit-transform: scale(1.04); /* Safari 3-8 */
      transform: scale(1.04);
- }
- .header .form-group{
-     border-radius: 4px;
+    background-color: rgb(0, 0, 0, 0.2);
  }
 </style>
