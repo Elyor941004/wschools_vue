@@ -1,7 +1,7 @@
 <template>
     <div class="header">
-        <Swiper class="header_swiper" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual]"
-                 :pagination="{ clickable:true, dynamicBullets:true }" grab-cursor virtual >
+        <Swiper class="header_swiper" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="1" :space-between="50"  :modules="[Navigation, Pagination, Virtual]"
+                  :pagination="{ clickable:true, dynamicBullets:true }"  grab-cursor virtual>
             <SwiperSlide v-for="number in numbers" :key="number.id" :virutalIndex="number.id">
                 <img :src="require(`../assets/img/${number.value}`)" v-bind:alt="number">
             </SwiperSlide>
@@ -20,10 +20,11 @@
     </div>
 </template>
 <script setup>
-import { Navigation, Pagination, Virtual } from 'swiper';
+import { Navigation, Pagination, Virtual} from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/bundle';
+import 'swiper/css/autoplay'
 </script>
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -35,7 +36,16 @@ export default {
     },
     data(){
         return {
-            numbers:[
+          swiperOptions: {
+            loop: true,
+            initialSlide: 0,
+            autoplay: {
+              delay: 1500,
+              disableOnInteraction: true
+            },
+            speed: 800,
+          },
+          numbers:[
                 {id:1, value: "headerslide1.jpg"},
                 {id:2, value:"headerslide2.jpg"},
                 {id:3, value:"headerslide3.jpg"},

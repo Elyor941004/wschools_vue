@@ -60,16 +60,7 @@
             </div>
           </div>
         </div>
-        <footer>
-            <div class="row">
-                <div class="col">
-                    <span>Tashkent 2022</span>
-                </div>
-                <div class="col">
-                    <span>Design in vuejs</span>
-                </div>
-            </div>
-        </footer>
+      <Footer/>
     </div>
 
 </template>
@@ -77,8 +68,9 @@
     import Header from "@/components/Header";
     import SwiperCarusel from "@/components/SwiperCarusel";
     import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
+    import Footer from "@/components/Footer";
     export default {
-      components: {SwiperCarusel, Header},
+      components: {Footer, SwiperCarusel, Header},
       computed:{
         ...mapState(['foods', 'desserts', 'cookies']),
         ...mapGetters(['allPosts', 'allDesserts', 'allCookies']),
@@ -194,18 +186,6 @@
       transform: scale(1.04);
       transition: transform .3s;
     }
-    footer .row{
-        height: 144px;
-        background-color: #fbfcfc;
-    }
-    footer .col{
-        height: 144px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(0, 0, 0, 0.2);
-        color: white;
-        font-weight: bold;
-    }
+
 
 </style>
